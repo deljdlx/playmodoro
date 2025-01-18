@@ -65,7 +65,7 @@ body {
     .playmodoro_panel {
         box-sizing: border-box;
         // border: 2px solid #aaa;
-        overflow: hidden;
+        // overflow: hidden;
         overflow-y: auto;
         width: 100vw;
         height: calc(100vh - $controlsContainerHeight - $noPauseContainerHeight  - $verticalOffset - $tabsHeight);
@@ -168,11 +168,11 @@ body {
         flex-direction: row;
         position: relative;
 
-        touch-action: none; /* Désactive le scroll pendant le drag */
-        -webkit-user-select: none;
-        user-select: none;
 
         .sortable_item__handle {
+            touch-action: none;
+            -webkit-user-select: none;
+            user-select: none;
             cursor: move;
             flex-shrink:0;
             flex-grow: 0;
