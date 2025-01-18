@@ -149,8 +149,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
 
                                                 <div className="flex gap-1">
                                                     <input
-                                                        // onChange={(e) => handleNewVideoUrl(e.target.value)}
-                                                        type="number"
+                                                        // type="number"
                                                         className="input input-bordered w-full grow"
                                                         placeholder="A number"
                                                         value={state.configuration.cycles}
@@ -175,13 +174,14 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <input
-                                                        type="number"
+                                                        // type="number"
                                                         className="input input-bordered w-full grow"
                                                         placeholder="A number"
-                                                        value={Math.round(state.configuration.workCycleDuration / 60000)}
+                                                        // value={Math.round(state.configuration.workCycleDuration / 60000)}
                                                         onChange={(e) => dispatchState({
                                                             type: "SET_WORK_CYCLE_DURATION",
-                                                            payload: parseInt(e.target.value) * 60000,
+                                                            // payload: parseInt(e.target.value) * 60000,
+                                                            payload: parseInt(e.target.value),
                                                         })}
                                                         onClick={(e) => e.currentTarget.select()}
                                                     />
@@ -197,13 +197,14 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <input
-                                                        type="number"
+                                                        // type="number"
                                                         className="input input-bordered w-full grow"
                                                         placeholder="A number"
-                                                        value={Math.round(state.configuration.pauseCycleDuration / 60000)}
+                                                        // value={Math.round(state.configuration.pauseCycleDuration / 60000)}
                                                         onChange={(e) => dispatchState({
                                                             type: "SET_PAUSE_CYCLE_DURATION",
-                                                            payload: parseInt(e.target.value) * 60000,
+                                                            // payload: parseInt(e.target.value) * 60000,
+                                                            payload: parseInt(e.target.value),
                                                         })}
                                                         onClick={(e) => e.currentTarget.select()}
                                                     />

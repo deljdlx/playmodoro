@@ -279,23 +279,36 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
             };
 
             case "SET_WORK_CYCLE_DURATION": {
-                return {
+
+                let newState = {
                     ...state,
                     configuration: {
                         ...state.configuration,
-                        workCycleDuration: action.payload,
                     },
                 };
+
+                if(action.payload > 0) {
+                    newState.configuration.workCycleDuration = action.payload * 60 * 1000;
+                }
+
+                return newState;
+
             };
 
             case "SET_PAUSE_CYCLE_DURATION": {
-                return {
+
+                let newState = {
                     ...state,
                     configuration: {
                         ...state.configuration,
-                        pauseCycleDuration: action.payload,
                     },
                 };
+
+                if(action.payload > 0) {
+                    newState.configuration.pauseCycleDuration = action.payload * 60 * 1000;
+                }
+
+                return newState;
             };
 
             default:
