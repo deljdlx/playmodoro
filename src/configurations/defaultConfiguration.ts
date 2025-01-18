@@ -1,12 +1,12 @@
 
 
 export const defaultConfiguration = {
-    // "workCycleDuration": 1800000,
-    // "pauseCycleDuration": 300000,
+    "workCycleDuration": 1800000,
+    "pauseCycleDuration": 300000,
 
 
-    "workCycleDuration": 4000,
-    "pauseCycleDuration": 4000,
+    // "workCycleDuration": 4000,
+    // "pauseCycleDuration": 4000,
 
     "cycles": 4,
     "playlists": {

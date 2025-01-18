@@ -42,6 +42,9 @@ body {
         height: $tabsHeight;
         font-size: 1.5rem;
     }
+    .tab:is(input[type="radio"]):after {
+        color: #aaa;
+    }
 
     .tab-content {
         box-sizing: border-box;
