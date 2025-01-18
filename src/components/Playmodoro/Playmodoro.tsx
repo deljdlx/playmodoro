@@ -177,7 +177,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                                                         type="number"
                                                         className="input input-bordered w-full grow"
                                                         placeholder="A number"
-                                                        value={Math.round(state.configuration.workCycleDuration / 60000)}
+                                                        // value={Math.round(state.configuration.workCycleDuration / 60000)}
                                                         onChange={(e) => dispatchState({
                                                             type: "SET_WORK_CYCLE_DURATION",
                                                             payload: parseInt(e.target.value),
@@ -200,7 +200,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                                                         type="number"
                                                         className="input input-bordered w-full grow"
                                                         placeholder="A number"
-                                                        value={Math.round(state.configuration.pauseCycleDuration / 60000)}
+                                                        // value={Math.round(state.configuration.pauseCycleDuration / 60000)}
                                                         onChange={(e) => dispatchState({
                                                             type: "SET_PAUSE_CYCLE_DURATION",
                                                             payload: parseInt(e.target.value),
