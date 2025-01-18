@@ -387,6 +387,13 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
         let newState = {...state};
         newState.currentWorkVideoElaspedTime = 0;
         newState.videoReady = true;
+
+        if(state.currentVideo) {
+            newState.currentVideo = {
+                ...state.currentVideo,
+            };
+        }
+
         return newState;
     }
 
