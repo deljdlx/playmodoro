@@ -82,12 +82,32 @@ export const Player: React.FC<PlayerProps> = ({
                     },
 
                     onStateChange: (event: any) => {
+
+                        console.log('%cPlayer.tsx :: 86 =============================', 'color: #f00; font-size: 5rem');
+                        console.log(event.data);
+
+                        if (event.data === window.YT.PlayerState.PLAYING) {
+                            dispatchState({
+                                type: "VIDEO_PLAYING",
+                            });
+                            return;
+                        }
+
+                        if (event.data === window.YT.PlayerState.PAUSED) {
+                            dispatchState({
+                                type: "VIDEO_PAUSED",
+                            });
+                            return;
+                        }
+
+
                         if (event.data === window.YT.PlayerState.ENDED) {
                             dispatchState({
                                 type: "VIDEO_ENDED",
                             });
                             return;
                         }
+
                     },
                 },
                 playerVars: {

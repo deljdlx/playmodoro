@@ -55,6 +55,8 @@ type PlaymodoroAction =
 
     | { type: "VIDEO_ENDED";}
     | { type: "VIDEO_READY";}
+    | { type: "VIDEO_PLAYING";}
+    | { type: "VIDEO_PAUSED";}
 
     | { type: "TOOGLE_RUN_STATE";}
     | { type: "TOGGLE_SKIP_PAUSE";}
@@ -62,6 +64,8 @@ type PlaymodoroAction =
 
     | { type: "NEXT_VIDEO";}
     | { type: "PREVIOUS_VIDEO";}
+    | { type: "SET_CURRENT_VIDEO"; payload: Video; }
+
 
 
     | { type: "UPDATE_PLAYLIST"; payload: {
@@ -173,6 +177,22 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                 return nextVideo(state);
             }
 
+            case "VIDEO_PLAYING": {
+                console.log('%cVIDEO_READY', 'color: #f00; font-size: 3rem');
+                return  {
+                    ...state,
+                    isRunning: true,
+                };
+            }
+
+            case "VIDEO_PAUSED": {
+                console.log('%cVIDEO_PAUSED', 'color: #f00; font-size: 3rem');
+                return  {
+                    ...state,
+                    isRunning: false,
+                };
+            }
+
             case "VIDEO_READY": {
                 console.log('%cVIDEO_READY', 'color: #f00; font-size: 3rem');
                 return  {
@@ -181,6 +201,24 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                 };
             }
 
+            case "SET_CURRENT_VIDEO": {
+                let newState = {
+                    ...state,
+                    currentVideo: action.payload,
+                };
+
+                if(state.isWorkCycleRunning) {
+                    newState.currentWorkVideoElaspedTime = 0;
+                    newState.currentWorkVideoIndex = state.configuration.playlists.work.findIndex((video) => video.id === action.payload.id);
+                }
+                else {
+                    newState.currentPauseVideoElaspedTime = 0;
+                    newState.currentPauseVideoIndex = state.configuration.playlists.pause.findIndex((video) => video.id === action.payload.id);
+                }
+
+                return newState;
+
+            };
             case "UPDATE_PLAYLIST": {
                 let newState = {
                     ...state,

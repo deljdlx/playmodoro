@@ -52,9 +52,6 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
 
     // save configuration to localStorage
     useEffect(() => {
-        console.log('%cSAVE CONFIGURATION', 'color: #ff0; font-size: 1rem');
-        console.log(isReady);
-
         if (isReady) {
             Storage.set('configuration', state.configuration);
         }
@@ -64,10 +61,6 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
 
 
     const handlePlaylistChange = (playlistName: string, videos: Video[]) => {
-
-        console.log('%cPlaymodoro.tsx :: 126 =============================', 'color: #f00; font-size: 1rem');
-        console.log(playlistName);
-
         dispatchState({
             type: "UPDATE_PLAYLIST",
             payload: {
@@ -76,6 +69,13 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
             }
         });
     };
+
+    const handleVideoClick = (video: Video) => {
+        dispatchState({
+            type: "SET_CURRENT_VIDEO",
+            payload: video,
+        });
+    }
 
 
 
@@ -90,13 +90,8 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                     >
                         <div className="playmodoro_panel cycles_panel">
 
-                            <Player
-                                // onChange={handlePlayerNext}
-                            />
+                            <Player />
 
-
-                            {/* <h1>{currentWorkVideoElaspedTime}</h1>
-                            <h1>{currentPauseVideoElaspedTime}</h1> */}
                             <div>
                                 <PlaymodoroCyclesInformations />
                             </div>
@@ -120,7 +115,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                                     <VideosList
                                         videos={state.configuration.playlists.work}
                                         onChange={(videos) => handlePlaylistChange('work', videos)}
-                                        // onVideoClick={handleVideoClick}
+                                        onVideoClick={handleVideoClick}
                                     />
                                 </Tab>
                                 <Tab
@@ -176,7 +171,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                         onClick={() => dispatchState({
                             type: "TOGGLE_REPEAT",
                         })}
-                        color={state.isRunning ? '#0fa' : '#aaa'}
+                        color={state.repeat ? '#0fa' : '#aaa'}
                     />
 
                 </div>
