@@ -1,0 +1,45 @@
+.video_thumbnail {
+    position: relative;
+    display: flex;
+    gap: 4px;
+    background-color: #aaa;
+    flex-grow: 1;
+
+    .video_thumbnail__thumbnail {
+        background-size: cover;
+        background-position: 50% 50%;
+        height: 80px;
+        width: 120px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .video_thumbnail__play {
+            background-color: #fff8;
+            border-radius: 4px;
+            color: #fff;
+            width: 50px;
+            cursor: pointer;
+        }
+
+    }
+
+    .video_thumbnail__title {
+        margin-top: 18px;
+        font-size: 12px;;
+        flex-grow: 1;
+        color: #000;
+        text-align: left;
+    }
+
+    .video_thumbnail__delete {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+    }
+}

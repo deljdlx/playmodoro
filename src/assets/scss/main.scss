@@ -1,0 +1,173 @@
+$breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px
+);
+
+// breakpoints mixins
+@mixin breakpoint($breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+
+@import './components/video_thumbnail';
+
+
+$controlsContainerHeight: 100px;
+$noPauseContainerHeight: 50px;
+$tabsHeight: 40px;
+
+
+body {
+    background-color: #000;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+
+    .App {
+        // border: #ff0 4px solid;
+        box-sizing: border-box;
+        position: relative;
+        width: 100vw;
+        overflow: hidden;
+    }
+
+
+    .tab {
+        height: $tabsHeight;
+        font-size: 1.5rem;
+    }
+
+    .tab-content {
+        box-sizing: border-box;
+        width: 100%;
+    }
+
+    .playmodoro {
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+    }
+
+    .playmodoro-tabs {
+        height: calc(100vh - $controlsContainerHeight - $noPauseContainerHeight);
+    }
+
+    .playmodoro_panel {
+        box-sizing: border-box;
+        // border: 2px solid #aaa;
+        overflow: hidden;
+        width: 100vw;
+        height: calc(100vh - $controlsContainerHeight - $noPauseContainerHeight - $tabsHeight);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 1rem;
+
+        overflow-y: auto;
+    }
+
+    .cycles_informations {
+        align-self: flex-end;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: start;
+        font-size: 1rem;
+
+        .item {
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+
+    .playmodoro__controls {
+        height: $controlsContainerHeight;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .no_pause {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        height: $noPauseContainerHeight;
+        font-size: 2rem;
+        padding-bottom: 1rem;
+    }
+
+
+
+
+
+
+    // configuration for md size
+    header {
+        @include breakpoint(md) {
+
+        }
+    }
+
+
+
+
+
+    .sortable_item {
+        border-radius: 4px;
+        border: 1px solid #fff;
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        .sortable_item__handle {
+            cursor: move;
+            flex-shrink:0;
+            flex-grow: 0;
+            flex-basis: 10px;
+            background-color: #ffa;
+            border-right: 1px solid #fff;
+        }
+    }
+
+
+
+
+
+        // @include breakpoint(md) {
+        //     flex-direction: row;
+        // }
+
+        .on_off_button_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+
+        .youtube_player {
+            // display: none;
+        }
+
+
+        .videos_list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
+    }
+
