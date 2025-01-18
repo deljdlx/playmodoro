@@ -78,11 +78,23 @@ export const VideosList: React.FC<VideosListProps> = ({
         const input = (e.target as HTMLFormElement).querySelector('input');
         if(input) {
             const url = input?.value;
-            const videoId = url?.split('v=')[1];
+            let videoId = url?.split('v=')[1];
 
             if(!videoId) {
-                console.error('Invalid video url');
-                return;
+                const shortUrl = url.split('?')[0];
+
+                if(shortUrl) {
+                    const extractedId = shortUrl.split('/').pop();
+
+                    if(extractedId) {
+                        videoId = extractedId;
+                    }
+                }
+
+                if(!videoId) {
+                    console.error('Invalid video url');
+                    return;
+                }
             }
 
             if(videoId) {
