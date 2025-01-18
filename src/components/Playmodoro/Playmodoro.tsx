@@ -130,6 +130,87 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                             </div>
                         </div>
                     </Tab>
+
+                    <Tab
+                        name="my_tabs_1"
+                        caption="Settings"
+                    >
+                        <div className="playmodoro_panel playlists_panel">
+
+                            <div role="tablist" className="tabs tabs-bordered">
+
+                                <form className="playmodoro-cycles-settings">
+                                    <div>
+                                        <fieldset>
+                                            <label className="form-control w-full">
+                                                <div className="label">
+                                                    <span className="label-text">Cycles number</span>
+                                                </div>
+                                                <input
+                                                    // onChange={(e) => handleNewVideoUrl(e.target.value)}
+                                                    type="number"
+                                                    className="input input-bordered w-full grow"
+                                                    placeholder="A number"
+                                                    value={state.configuration.cycles}
+                                                    onChange={(e) => dispatchState({
+                                                        type: "SET_CYCLES_NUMBER",
+                                                        payload: parseInt(e.target.value),
+                                                    })}
+                                                />
+                                            </label>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <label className="form-control w-full">
+                                                <div className="label">
+                                                    <span className="label-text">Work duration</span>
+                                                </div>
+                                                <input
+                                                    // onChange={(e) => handleNewVideoUrl(e.target.value)}
+                                                    type="number"
+                                                    className="input input-bordered w-full grow"
+                                                    placeholder="A number"
+                                                    value={Math.round(state.configuration.workCycleDuration / 60000)}
+                                                    onChange={(e) => dispatchState({
+                                                        type: "SET_WORK_CYCLE_DURATION",
+                                                        payload: parseInt(e.target.value) * 60000,
+                                                    })}
+                                                />
+                                            </label>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <label className="form-control w-full">
+                                                <div className="label">
+                                                    <span className="label-text">Pause duration</span>
+                                                </div>
+                                                <input
+                                                    // onChange={(e) => handleNewVideoUrl(e.target.value)}
+                                                    type="number"
+                                                    className="input input-bordered w-full grow"
+                                                    placeholder="A number"
+                                                    value={Math.round(state.configuration.pauseCycleDuration / 60000)}
+                                                    onChange={(e) => dispatchState({
+                                                        type: "SET_PAUSE_CYCLE_DURATION",
+                                                        payload: parseInt(e.target.value) * 60000,
+                                                    })}
+                                                />
+                                            </label>
+                                        </fieldset>
+
+                                        {/* <button className="btn btn-primary btn-md" type="submit">Add</button> */}
+                                    </div>
+                                </form>
+
+
+
+
+                            </div>
+                        </div>
+                    </Tab>
+
+
+
                 </div>
 
 

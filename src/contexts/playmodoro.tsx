@@ -77,6 +77,9 @@ type PlaymodoroAction =
     | { type: "SET_CURRENT_VIDEO_ELAPSED_TIME"; payload: number;}
 
     | { type: "SET_CONFIGURATION"; payload: PlaymodoroConfiguration; }
+    | { type: "SET_CYCLES_NUMBER"; payload: number; }
+    | { type: "SET_WORK_CYCLE_DURATION"; payload: number; }
+    | { type: "SET_PAUSE_CYCLE_DURATION"; payload: number; }
 
 
 ;
@@ -265,6 +268,35 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                     configuration: action.payload,
                 };
             }
+            case "SET_CYCLES_NUMBER": {
+                return {
+                    ...state,
+                    configuration: {
+                        ...state.configuration,
+                        cycles: action.payload,
+                    },
+                };
+            };
+
+            case "SET_WORK_CYCLE_DURATION": {
+                return {
+                    ...state,
+                    configuration: {
+                        ...state.configuration,
+                        workCycleDuration: action.payload,
+                    },
+                };
+            };
+
+            case "SET_PAUSE_CYCLE_DURATION": {
+                return {
+                    ...state,
+                    configuration: {
+                        ...state.configuration,
+                        pauseCycleDuration: action.payload,
+                    },
+                };
+            };
 
             default:
                 return state;

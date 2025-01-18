@@ -76,6 +76,15 @@ body {
         overflow-y: auto;
     }
 
+    .playmodoro-cycles-settings {
+        .label {
+            .label-text {
+                color: #aaa;
+                font-size: 1.5rem;
+            }
+        }
+    }
+
     .cycles_informations {
         align-self: flex-end;
         display: flex;
