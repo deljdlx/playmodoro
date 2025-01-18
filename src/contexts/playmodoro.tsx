@@ -288,7 +288,7 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                 };
 
                 if(action.payload > 0) {
-                    newState.configuration.workCycleDuration = action.payload;
+                    newState.configuration.workCycleDuration = action.payload * 1000 * 60;
                 }
 
                 return newState;
@@ -305,7 +305,7 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                 };
 
                 if(action.payload > 0) {
-                    newState.configuration.pauseCycleDuration = action.payload;
+                    newState.configuration.pauseCycleDuration = action.payload * 1000 * 60;
                 }
 
                 return newState;

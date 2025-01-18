@@ -36,6 +36,8 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
     } = usePlaymodoroContext();
 
     const [isReady, setIsReady] = useState(false);
+    const [localWorkCycleDuration, setLocalWorkCycleDuration] = useState(state.configuration.workCycleDuration);
+    const [localPauseCycleDuration, setLocalPauseCycleDuration] = useState(state.configuration.pauseCycleDuration);
 
 
     useEffect(() => {
@@ -76,7 +78,6 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
             payload: video,
         });
     }
-
 
 
     return (
@@ -150,6 +151,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                                                 <div className="flex gap-1">
                                                     <input
                                                         type="number"
+                                                        min={1}
                                                         className="input input-bordered w-full grow"
                                                         placeholder="A number"
                                                         value={state.configuration.cycles}
@@ -170,19 +172,26 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                                         <fieldset>
                                             <label className="form-control w-full">
                                                 <div className="label">
-                                                    <span className="label-text">Work duration</span>
+                                                    <span className="label-text">Work duration in minutes</span>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <input
                                                         type="number"
+                                                        step="0.1"
+                                                        min="0.1"
                                                         className="input input-bordered w-full grow"
-                                                        placeholder="A number"
-                                                        value={Math.round(state.configuration.workCycleDuration / 60000)}
-                                                        onChange={(e) => dispatchState({
-                                                            type: "SET_WORK_CYCLE_DURATION",
-                                                            payload: parseInt(e.target.value),
-                                                            // payload: parseInt(e.target.value),
-                                                        })}
+                                                        placeholder={(state.configuration.workCycleDuration / 60000).toString()}
+                                                        onBlur={(e) => {
+                                                            if (isNaN(parseFloat(e.target.value)) || parseFloat(e.target.value) <= 0) {
+                                                                e.target.value = state.configuration.workCycleDuration.toString();
+                                                            }
+
+                                                            dispatchState({
+                                                                type: "SET_WORK_CYCLE_DURATION",
+                                                                payload: parseFloat(e.target.value),
+                                                                // payload: parseInt(e.target.value),
+                                                            })
+                                                        }}
                                                         onClick={(e) => e.currentTarget.select()}
                                                     />
                                                     <button className="btn btn-primary btn-md" type="submit">OK</button>
@@ -193,19 +202,26 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                                         <fieldset>
                                             <label className="form-control w-full">
                                                 <div className="label">
-                                                    <span className="label-text">Pause duration</span>
+                                                    <span className="label-text">Pause duration in minutes</span>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <input
                                                         type="number"
+                                                        step="0.1"
+                                                        min="0.1"
                                                         className="input input-bordered w-full grow"
-                                                        placeholder="A number"
-                                                        value={Math.round(state.configuration.pauseCycleDuration / 60000)}
-                                                        onChange={(e) => dispatchState({
-                                                            type: "SET_PAUSE_CYCLE_DURATION",
-                                                            payload: parseInt(e.target.value),
-                                                            // payload: parseInt(e.target.value),
-                                                        })}
+                                                        placeholder={(state.configuration.pauseCycleDuration / 60000).toString()}
+                                                        onBlur={(e) => {
+                                                            if (isNaN(parseFloat(e.target.value)) || parseFloat(e.target.value) <= 0) {
+                                                                e.target.value = state.configuration.pauseCycleDuration.toString();
+                                                            }
+
+                                                            dispatchState({
+                                                                type: "SET_PAUSE_CYCLE_DURATION",
+                                                                payload: parseFloat(e.target.value),
+                                                                // payload: parseInt(e.target.value),
+                                                            })
+                                                        }}
                                                         onClick={(e) => e.currentTarget.select()}
                                                     />
                                                     <button className="btn btn-primary btn-md" type="submit">OK</button>
