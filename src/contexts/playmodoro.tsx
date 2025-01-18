@@ -384,13 +384,8 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
 
     const rewindVideo = (state: PlaymodoroState): PlaymodoroState => {
         let newState = {...state};
-        if(state.isWorkCycleRunning) {
-            newState.currentWorkVideoElaspedTime = 0;
-        }
-        else {
-            newState.currentPauseVideoElaspedTime = 0;
-        }
-        newState.videoReady = false;
+        newState.currentWorkVideoElaspedTime = 0;
+        // newState.videoReady = true;
         return newState;
     }
 
