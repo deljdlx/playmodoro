@@ -5,6 +5,7 @@ import {
     closestCenter,
     KeyboardSensor,
     PointerSensor,
+    TouchSensor,
     useSensor,
     useSensors,
   } from '@dnd-kit/core';
@@ -39,12 +40,12 @@ export const VideosList: React.FC<VideosListProps> = ({
 }) => {
 
     // Sortable configuration
-    const sensors = useSensors(
-        useSensor(PointerSensor), // Souris / tactile
-        useSensor(KeyboardSensor, {
-        coordinateGetter: sortableKeyboardCoordinates, // Support clavier
-        })
-    );
+    // const sensors = useSensors(
+    //     useSensor(PointerSensor), // Souris / tactile
+    //     useSensor(KeyboardSensor, {
+    //     coordinateGetter: sortableKeyboardCoordinates, // Support clavier
+    //     })
+    // );
 
 
     // kept for reference
@@ -56,6 +57,25 @@ export const VideosList: React.FC<VideosListProps> = ({
     //       },
     //     })
     // );
+
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+          activationConstraint: {
+            delay: 75,
+            tolerance: 5,
+          },
+        }),
+        useSensor(TouchSensor, {
+          activationConstraint: {
+            delay: 75,
+            tolerance: 5,
+          },
+        })
+      );
+
+
+
+
 
 
     const handleDragEnd = (event: any) => {

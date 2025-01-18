@@ -157,11 +157,16 @@ body {
         display: flex;
         flex-direction: row;
         position: relative;
+
+        touch-action: none; /* Désactive le scroll pendant le drag */
+        -webkit-user-select: none;
+        user-select: none;
+
         .sortable_item__handle {
             cursor: move;
             flex-shrink:0;
             flex-grow: 0;
-            flex-basis: 10px;
+            flex-basis: 20px;
             background-color: #ffa;
             border-right: 1px solid #fff;
         }
