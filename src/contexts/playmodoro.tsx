@@ -354,10 +354,11 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                 if(!state.skipPause) {
                     newState.videoReady = false;
                     newState.isWorkCycleRunning = false;
-                    newState.workTimeElapsed = 0;
-                    newState.isWorkCycleRunning = false;
                     newState.currentPlaylist = 'pause';
                     newState.currentVideo = state.configuration.playlists.pause[state.currentPauseVideoIndex];
+                }
+                else {
+                    newState.workTimeElapsed = 0;
                 }
             }
         }
@@ -385,7 +386,7 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
     const rewindVideo = (state: PlaymodoroState): PlaymodoroState => {
         let newState = {...state};
         newState.currentWorkVideoElaspedTime = 0;
-        // newState.videoReady = true;
+        newState.videoReady = true;
         return newState;
     }
 

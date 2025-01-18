@@ -19,7 +19,7 @@ export const PlaymodoroCyclesInformations: React.FC<PlaymodoroCyclesInformations
     return (
         <section className="cycles_informations">
 
-            {/* <div className="cycles__count item">
+            <div className="cycles__count item">
                 <span>Playlist : </span>
                 <span>{state.currentPlaylist}</span>
             </div>
@@ -34,7 +34,7 @@ export const PlaymodoroCyclesInformations: React.FC<PlaymodoroCyclesInformations
             <div className="cycles__count item">
                 <span>Pause data : </span>
                 <span>{state.currentPauseVideoIndex} : {millisecondsToHuman(state.currentPauseVideoElaspedTime)}</span>
-            </div> */}
+            </div>
 
 
             <div className="item">
