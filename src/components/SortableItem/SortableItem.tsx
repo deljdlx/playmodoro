@@ -1,6 +1,8 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
+import { RiArrowUpDownLine } from '@remixicon/react';
+
 interface SortableItemProps {
   id: string;
   children: React.ReactNode;
@@ -29,7 +31,11 @@ export const SortableItem: React.FC<SortableItemProps> = ({ id, children }) => {
             className="sortable_item__handle"
             {...attributes}
             {...listeners}
-        ></div>
+        >
+          <RiArrowUpDownLine
+            color="#aaa"
+          />
+        </div>
 
       {children}
     </div>
