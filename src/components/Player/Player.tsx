@@ -154,7 +154,7 @@ export const Player: React.FC<PlayerProps> = ({
                         type: "VIDEO_READY",
                     });
                 }, 250);
-            }, 250);
+            }, 900);
         }
 
     }, [state.currentVideo]);
