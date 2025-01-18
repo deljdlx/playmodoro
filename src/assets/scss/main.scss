@@ -66,6 +66,7 @@ body {
         box-sizing: border-box;
         // border: 2px solid #aaa;
         overflow: hidden;
+        overflow-y: auto;
         width: 100vw;
         height: calc(100vh - $controlsContainerHeight - $noPauseContainerHeight  - $verticalOffset - $tabsHeight);
         display: flex;
