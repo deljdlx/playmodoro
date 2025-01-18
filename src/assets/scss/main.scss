@@ -81,10 +81,29 @@ body {
         font-size: 1rem;
 
         .item {
+            font-size: 1.5rem;
             width: 100%;
             flex-grow: 1;
             display: flex;
             justify-content: space-between;
+
+
+            @keyframes rotate {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .waiting {
+                animation-name: rotate;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+                animation-duration: 4s;
+            }
+
         }
     }
 

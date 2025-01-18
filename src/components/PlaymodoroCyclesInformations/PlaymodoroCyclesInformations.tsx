@@ -3,32 +3,23 @@ import React from 'react';
 import { usePlaymodoroContext } from '../../contexts/playmodoro';
 import { millisecondsToHuman } from '../../utils/string';
 
-import {RiShutDownLine} from '@remixicon/react';
+import {RiHourglassLine} from '@remixicon/react';
 
 type PlaymodoroCyclesInformationsProps = {
-    // cycles: number;
+
 };
 
 export const PlaymodoroCyclesInformations: React.FC<PlaymodoroCyclesInformationsProps> = ({
-    // cycles
+
 }) => {
-
     const {
-
         state,
-        dispatchState,
-
-        // cyclesCount,
-        // totalTimeLeft,
-
-
     } = usePlaymodoroContext();
 
     return (
         <section className="cycles_informations">
 
-
-            <div className="cycles__count item">
+            {/* <div className="cycles__count item">
                 <span>Playlist : </span>
                 <span>{state.currentPlaylist}</span>
             </div>
@@ -43,7 +34,7 @@ export const PlaymodoroCyclesInformations: React.FC<PlaymodoroCyclesInformations
             <div className="cycles__count item">
                 <span>Pause data : </span>
                 <span>{state.currentPauseVideoIndex} : {millisecondsToHuman(state.currentPauseVideoElaspedTime)}</span>
-            </div>
+            </div> */}
 
 
             <div className="cycles__count item">
@@ -56,14 +47,23 @@ export const PlaymodoroCyclesInformations: React.FC<PlaymodoroCyclesInformations
                 <span>{millisecondsToHuman(state.timeElapsed)}</span>
             </div>
 
-            <div className="item">
-                <span>Work: </span>
-                <span>{millisecondsToHuman(state.configuration.workCycleDuration - state.workTimeElapsed)}</span>
-            </div>
-            <div className="item">
-                <span>Pause: </span>
-                <span>{millisecondsToHuman(state.configuration.pauseCycleDuration - state.pauseTimeElapsed)}</span>
-            </div>
+            {state.isRunning && state.isWorkCycleRunning && (
+                <div className="item">
+                    <span>Work cycle ends in: </span>
+                    <span>
+                        {millisecondsToHuman(state.configuration.workCycleDuration - state.workTimeElapsed)}
+                    </span>
+                </div>
+            )}
+
+            {state.isRunning && !state.isWorkCycleRunning && (
+                <div className="item">
+                    <span>Pause cycle ends in: </span>
+                    <span>
+                        {millisecondsToHuman(state.configuration.pauseCycleDuration - state.pauseTimeElapsed)}
+                    </span>
+                </div>
+            )}
         </section>
     );
 

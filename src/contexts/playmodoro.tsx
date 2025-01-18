@@ -162,6 +162,10 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                     ...state,
                     lastTick: new Date(),
                     isRunning: !state.isRunning,
+                    cyclesCount:
+                        (state.cyclesCount >= state.configuration.cycles && !state.isRunning)
+                            ? 0
+                            : state.cyclesCount,
                 };
             case "TOGGLE_SKIP_PAUSE": {
                 let newState = {...state};
@@ -290,13 +294,26 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
 
             newState.workTimeElapsed += elapsed;
 
-            if(newState.workTimeElapsed >= state.configuration.workCycleDuration && !state.skipPause) {
-                newState.videoReady = false;
-                newState.isWorkCycleRunning = false;
-                newState.workTimeElapsed = 0;
-                newState.isWorkCycleRunning = false;
-                newState.currentPlaylist = 'pause';
-                newState.currentVideo = state.configuration.playlists.pause[state.currentPauseVideoIndex];
+
+            if(newState.workTimeElapsed >= state.configuration.workCycleDuration) {
+                newState.cyclesCount++;
+
+                if(newState.cyclesCount >= state.configuration.cycles) {
+                    newState.isRunning = false;
+                    newState.workTimeElapsed = 0;
+                    // newState.isWorkCycleRunning = true;
+                    // newState.currentPlaylist = 'work';
+                    return newState;
+                }
+
+                if(!state.skipPause) {
+                    newState.videoReady = false;
+                    newState.isWorkCycleRunning = false;
+                    newState.workTimeElapsed = 0;
+                    newState.isWorkCycleRunning = false;
+                    newState.currentPlaylist = 'pause';
+                    newState.currentVideo = state.configuration.playlists.pause[state.currentPauseVideoIndex];
+                }
             }
         }
         else {
