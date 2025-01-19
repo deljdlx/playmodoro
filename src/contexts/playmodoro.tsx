@@ -343,6 +343,7 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                 }
 
                 if(!state.skipPause) {
+                    newState.workTimeElapsed = 0;
                     newState = switchToPlaylist(newState, 'pause');
                 }
                 else {
@@ -357,6 +358,7 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
             newState.pauseTimeElapsed += elapsed;
 
             if(newState.pauseTimeElapsed >= state.configuration.pauseCycleDuration) {
+                newState.pauseTimeElapsed = 0;
                 newState = switchToPlaylist(newState, 'work');
             }
         }
