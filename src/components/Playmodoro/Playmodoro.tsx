@@ -133,13 +133,6 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                 <div>
                     <Controls />
                 </div>
-                <div className="debug_toggle_container">
-                    <button className="btn btn-primary btn-xs" onClick={() => {
-                        dispatchState({
-                            type: "TOGGLE_DEBUG_MODE",
-                        });
-                    }}>🕵️</button>
-                </div>
             </div>
         </>
     );

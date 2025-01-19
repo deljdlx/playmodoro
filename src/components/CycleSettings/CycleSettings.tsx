@@ -102,9 +102,23 @@ export const CycleSettings: React.FC = () => {
                 </fieldset>
             </div>
 
-            <div>
 
+            <div className="debug_toggle_container mt-4">
+                <label className="no_pause">
+                    <span className="no_pause__caption">
+                        Debug mode
+                    </span>
+
+                    <input
+                        type="checkbox"
+                        className="toggle"
+                        checked={state.debugMode} onChange={() => dispatchState({
+                            type: "TOGGLE_DEBUG_MODE",
+                        })}
+                    />
+                </label>
             </div>
+
         </div>
     );
 
