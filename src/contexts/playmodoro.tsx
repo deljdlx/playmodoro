@@ -211,6 +211,7 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
             case "SET_CURRENT_VIDEO": {
                 let newState = {
                     ...state,
+                    isRunning: true,
                     currentVideo: action.payload,
                 };
 
@@ -234,9 +235,6 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                     },
                 };
 
-                // https://www.youtube.com/watch?v=DCtouot15cA
-                // https://www.youtube.com/watch?v=le1QF3uoQNg
-
                 if(
                     !newState.configuration.playlists[action.payload.playlistName].length
                     && action.payload.videos.length
@@ -244,20 +242,14 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                     newState.currentVideo = {
                         ...action.payload.videos[0]
                     };
-                    console.log('%cSET CURRENT VIDEO IF', 'color: #f00; font-size: 2rem');
-                    console.log(state.currentVideo);
-                    console.log(newState.currentVideo);
                 }
                 else {
-                    console.log('%cSET CURRENT VIDEO ELSE', 'color: #f00; font-size: 2rem');
                     newState.currentVideo = {
                         ...newState.configuration.playlists[state.currentPlaylist][state.currentWorkVideoIndex]
                     };
                 }
 
                 newState.configuration.playlists[action.payload.playlistName] = action.payload.videos;
-
-                console.log(JSON.stringify(newState.configuration));
                 return newState;
             }
 
@@ -330,16 +322,15 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
         newState.timeElapsed += elapsed;
         newState.lastTick = currentTick;
 
+        let playerElapsed = Math.round(state.player.playerInfo.currentTime * 1000);
+
         if(state.isWorkCycleRunning) {
-            let playerElapsed = Math.round(state.player.playerInfo.currentTime * 1000);
-            // console.log('%cplayerElapsed', 'color: #f00; font-size: 3rem', playerElapsed);
             if(playerElapsed) {
                 newState.currentWorkVideoElaspedTime = playerElapsed;
             }
-
             newState.workTimeElapsed += elapsed;
 
-
+            // work cycle ends
             if(newState.workTimeElapsed >= state.configuration.workCycleDuration) {
                 newState.cyclesCount++;
 
@@ -352,10 +343,7 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                 }
 
                 if(!state.skipPause) {
-                    newState.videoReady = false;
-                    newState.isWorkCycleRunning = false;
-                    newState.currentPlaylist = 'pause';
-                    newState.currentVideo = state.configuration.playlists.pause[state.currentPauseVideoIndex];
+                    newState = switchToPlaylist(newState, 'pause');
                 }
                 else {
                     newState.workTimeElapsed = 0;
@@ -363,24 +351,33 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
             }
         }
         else {
-            let playerElapsed = Math.round(state.player.playerInfo.currentTime * 1000);
             if(playerElapsed) {
                 newState.currentPauseVideoElaspedTime = playerElapsed;
             }
-
-
             newState.pauseTimeElapsed += elapsed;
+
             if(newState.pauseTimeElapsed >= state.configuration.pauseCycleDuration) {
-                newState.videoReady = false;
-                newState.isWorkCycleRunning = true;
-                newState.pauseTimeElapsed = 0;
-                newState.isWorkCycleRunning = true;
-                newState.currentPlaylist = 'work';
-                newState.currentVideo = state.configuration.playlists.work[state.currentWorkVideoIndex];
+                newState = switchToPlaylist(newState, 'work');
             }
         }
 
         return newState;
+    };
+
+    const switchToPlaylist = (state: PlaymodoroState, playlistName: string): PlaymodoroState => {
+        state.videoReady = false;
+        if(playlistName === 'pause') {
+            state.isWorkCycleRunning = false;
+            state.currentPlaylist = 'pause';
+            state.currentVideo = state.configuration.playlists.pause[state.currentPauseVideoIndex];
+        }
+        else {
+            state.isWorkCycleRunning = true;
+            state.currentPlaylist = 'work';
+            state.currentVideo = state.configuration.playlists.work[state.currentWorkVideoIndex];
+        }
+
+        return state;
     };
 
     const rewindVideo = (state: PlaymodoroState): PlaymodoroState => {

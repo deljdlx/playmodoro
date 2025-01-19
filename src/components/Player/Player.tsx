@@ -128,9 +128,7 @@ export const Player: React.FC<PlayerProps> = ({
 
     useEffect(() => {
 
-        console.log('%cHANDLING state.currentVideo', 'color: #f0f; font-size: 2rem');
-
-        if(!playerInstanceRef.current || !state.currentVideo) {
+        if(!playerInstanceRef.current || !state.currentVideo || !state.isRunning) {
             return;
         }
 
@@ -141,7 +139,6 @@ export const Player: React.FC<PlayerProps> = ({
         else {
             elapsedTime = state.currentPauseVideoElaspedTime
         }
-
 
         playerInstanceRef.current.loadVideoById(state.currentVideo.id);
 
