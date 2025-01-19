@@ -100,8 +100,10 @@ export const CycleSettings: React.FC = () => {
                         </div>
                     </label>
                 </fieldset>
+            </div>
 
-                {/* <button className="btn btn-primary btn-md" type="submit">Add</button> */}
+            <div>
+
             </div>
         </div>
     );

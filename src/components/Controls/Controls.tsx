@@ -33,7 +33,7 @@ export const Controls: React.FC = () => {
                     className="start-cycles-button"
                     size={70}
                     onClick={() => dispatchState({
-                        type: "TOOGLE_RUN_STATE",
+                        type: "TOGGLE_RUN_STATE",
                     })}
                     color={state.isRunning ? '#0fa' : '#aaa'}
                 />

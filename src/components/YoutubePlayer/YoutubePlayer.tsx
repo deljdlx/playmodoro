@@ -2,15 +2,10 @@ import React, {useState, useEffect, useRef} from 'react';
 import { usePlaymodoroContext } from '../../contexts/playmodoro';
 
 type PlayerProps = {
-    // configuration: PlaymodoroConfiguration;
-    onChange?: () => void;
-    // elapsedTime?: number;
 };
 
 
-export const Player: React.FC<PlayerProps> = ({
-    onChange,
-    // configuration,
+export const YoutubePlayer: React.FC<PlayerProps> = ({
 }) => {
     const [isYouTubeAPIReady, setYouTubeAPIReady] = useState(false);
     const [isPlayerReady, setIsPlayerReady] = useState(false);

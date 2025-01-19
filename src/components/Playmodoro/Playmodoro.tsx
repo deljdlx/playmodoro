@@ -9,7 +9,7 @@ import { usePlaymodoroContext } from '../../contexts/playmodoro';
 import { PlaymodoroCyclesInformations } from '../PlaymodoroCyclesInformations/PlaymodoroCyclesInformations';
 import { Tab } from '../Tab/Tab';
 import { VideosList } from '../VideosList/VideosList';
-import { Player } from '../Player/Player';
+import { YoutubePlayer } from '../YoutubePlayer/YoutubePlayer';
 import { CycleSettings } from '../CycleSettings/CycleSettings';
 import { Controls } from '../Controls/Controls';
 import { Search } from '../Search/Search';
@@ -73,9 +73,9 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
             <div className="playmodoro">
                 <div role="tablist" className="playmodoro-tabs tabs tabs-bordered">
 
-                    <Tab name="playmodoro_tabs" caption="Cycles" checked={true}>
+                    <Tab name="playmodoro_tabs" caption="Cycle" checked={true}>
                         <div className="playmodoro_panel cycles_panel p-4">
-                            <Player />
+                            <YoutubePlayer />
                             <div>
                                 <PlaymodoroCyclesInformations />
                             </div>
@@ -124,7 +124,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                             </div>
                         </div>
                     </Tab>
-                    <Tab name="playmodoro_tabs" caption="Settings">
+                    <Tab name="playmodoro_tabs" caption="⚙️">
                         <div className="playmodoro_panel setting_panel p-4">
                             <CycleSettings />
                         </div>
@@ -132,6 +132,13 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                 </div>
                 <div>
                     <Controls />
+                </div>
+                <div className="debug_toggle_container">
+                    <button className="btn btn-primary btn-xs" onClick={() => {
+                        dispatchState({
+                            type: "TOGGLE_DEBUG_MODE",
+                        });
+                    }}>🕵️</button>
                 </div>
             </div>
         </>

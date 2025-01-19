@@ -20,6 +20,8 @@ type PlaymodoroProviderProps = {
 // ====================================================================
 type PlaymodoroState = {
 
+    debugMode: boolean;
+
     configuration: PlaymodoroConfiguration;
 
     player?: any;
@@ -44,9 +46,6 @@ type PlaymodoroState = {
     pauseTimeElapsed: number;
     cyclesCount: number;
 
-    // workCycleDuration: number;
-    // pauseCycleDuration: number;
-
     currentVideo?: Video;
 };
 
@@ -58,9 +57,10 @@ type PlaymodoroAction =
     | { type: "VIDEO_PLAYING";}
     | { type: "VIDEO_PAUSED";}
 
-    | { type: "TOOGLE_RUN_STATE";}
+    | { type: "TOGGLE_RUN_STATE";}
     | { type: "TOGGLE_SKIP_PAUSE";}
     | { type: "TOGGLE_REPEAT";}
+
 
     | { type: "NEXT_VIDEO";}
     | { type: "PREVIOUS_VIDEO";}
@@ -80,12 +80,13 @@ type PlaymodoroAction =
     | { type: "SET_CYCLES_NUMBER"; payload: number; }
     | { type: "SET_WORK_CYCLE_DURATION"; payload: number; }
     | { type: "SET_PAUSE_CYCLE_DURATION"; payload: number; }
-
-
+    | { type: "TOGGLE_DEBUG_MODE";}
 ;
 
 
 const initialState: PlaymodoroState = {
+    debugMode: false,
+
     configuration:{
         workCycleDuration: 0,
         pauseCycleDuration: 0,
@@ -97,9 +98,6 @@ const initialState: PlaymodoroState = {
     },
 
     lastTick: new Date(),
-
-
-    // playlists: playlists,
 
     isRunning: false,
     skipPause: false,
@@ -154,13 +152,19 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                 return previousVideo(state);
             }
 
+            case "TOGGLE_DEBUG_MODE": {
+                let newState = {...state};
+                newState.debugMode = !state.debugMode;
+                return newState;
+            }
+
             case "TOGGLE_REPEAT": {
                 let newState = {...state};
                 newState.repeat = !state.repeat;
                 return newState;
             }
 
-            case "TOOGLE_RUN_STATE":
+            case "TOGGLE_RUN_STATE":
                 return {
                     ...state,
                     lastTick: new Date(),

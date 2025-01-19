@@ -19,22 +19,26 @@ export const PlaymodoroCyclesInformations: React.FC<PlaymodoroCyclesInformations
     return (
         <section className="cycles_informations">
 
-            <div className="cycles__count item">
-                <span>Playlist : </span>
-                <span>{state.currentPlaylist}</span>
-            </div>
+            {state.debugMode && (
+                <>
+                    <div className="cycles__count item">
+                        <span>Playlist : </span>
+                        <span>{state.currentPlaylist}</span>
+                    </div>
 
-            <div className="cycles__count item">
-                <span>Work data : </span>
-                <span>{state.currentWorkVideoIndex} : {millisecondsToHuman(state.currentWorkVideoElaspedTime)}</span>
-            </div>
+                    <div className="cycles__count item">
+                        <span>Work data : </span>
+                        <span>{state.currentWorkVideoIndex} : {millisecondsToHuman(state.currentWorkVideoElaspedTime)}</span>
+                    </div>
 
 
 
-            <div className="cycles__count item">
-                <span>Pause data : </span>
-                <span>{state.currentPauseVideoIndex} : {millisecondsToHuman(state.currentPauseVideoElaspedTime)}</span>
-            </div>
+                    <div className="cycles__count item">
+                        <span>Pause data : </span>
+                        <span>{state.currentPauseVideoIndex} : {millisecondsToHuman(state.currentPauseVideoElaspedTime)}</span>
+                    </div>
+                </>
+            )}
 
 
             <div className="item">
