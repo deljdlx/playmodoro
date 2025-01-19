@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import type { Video } from '../../types/Video';
-import { Storage } from '../../utils/storage';
+import { Storage } from '../../utils/Storage';
 import { defaultConfiguration } from '../../configurations/defaultConfiguration';
 import { usePlaymodoroContext } from '../../contexts/playmodoro';
 

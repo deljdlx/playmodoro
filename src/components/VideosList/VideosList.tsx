@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
     DndContext,
     closestCenter,
-    KeyboardSensor,
     PointerSensor,
     TouchSensor,
     useSensor,
@@ -15,17 +14,16 @@ import {
     arrayMove,
   } from '@dnd-kit/sortable';
 
-import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import {SortableItem} from '../SortableItem/SortableItem';
-
 
 import type { Video } from '../../types/Video';
+import { VideoDataFetcher } from '../../utils/VideoDataFetcher';
 
+
+import {SortableItem} from '../SortableItem/SortableItem';
 import { VideoThumbnail } from '../VideoThumbnail/VideoThumbnail';
 import { RiSearchLine } from '@remixicon/react';
 
 
-import { fetchVideoInfo } from '../../utils/youtube';
 
 type VideosListProps = {
     videos: Video[];
@@ -38,25 +36,6 @@ export const VideosList: React.FC<VideosListProps> = ({
     onChange,
     onVideoClick,
 }) => {
-
-    // Sortable configuration
-    // const sensors = useSensors(
-    //     useSensor(PointerSensor), // Souris / tactile
-    //     useSensor(KeyboardSensor, {
-    //     coordinateGetter: sortableKeyboardCoordinates, // Support clavier
-    //     })
-    // );
-
-
-    // kept for reference
-    // const sensors = useSensors(
-    //     useSensor(PointerSensor, {
-    //       activationConstraint: {
-    //         delay: 75, // Délai avant activation du drag-and-drop
-    //         tolerance: 5, // Mouvement minimal pour activer le drag
-    //       },
-    //     })
-    // );
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -71,11 +50,7 @@ export const VideosList: React.FC<VideosListProps> = ({
             tolerance: 5,
           },
         })
-      );
-
-
-
-
+    );
 
 
     const handleDragEnd = (event: any) => {
@@ -92,50 +67,79 @@ export const VideosList: React.FC<VideosListProps> = ({
         }
     };
 
-    const handleAddVideo = async (e: React.FormEvent) => {
+    const handleAdd = async (e: React.FormEvent) => {
         e.preventDefault();
-
         const input = (e.target as HTMLFormElement).querySelector('input');
+
         if(input) {
-            const url = input?.value;
-            let videoId = url?.split('v=')[1];
+            const url = input.value;
+            input.value = '';
 
-            if(!videoId) {
-                const shortUrl = url.split('?')[0];
+            if(url.includes('list=')) {
+                return handleAddPlaylist(url);
+            }
 
-                if(shortUrl) {
-                    const extractedId = shortUrl.split('/').pop();
+            return handleAddVideo(url);
+        }
+    };
 
-                    if(extractedId) {
-                        videoId = extractedId;
-                    }
-                }
 
-                if(!videoId) {
-                    console.error('Invalid video url');
-                    return;
+    const handleAddPlaylist = async (url: string) => {
+        const playlistId = url.split('list=')[1];
+        const items = await VideoDataFetcher.fetchPlaylistVideos(playlistId);
+
+        if(items) {
+            const newVideos = items.map((item: any) => {
+                const videoId = item.snippet.resourceId.videoId;
+                return {
+                    id: videoId,
+                    url: `https://www.youtube.com/watch?v=${videoId}`,
+                    title: item.snippet.title,
+                    apiData: item,
+                };
+            });
+
+            if(onChange) {
+                onChange([...videos, ...newVideos]);
+            }
+        }
+    };
+
+    const handleAddVideo = async (url: string) => {
+        let videoId = url.split('v=')[1];
+
+        if(!videoId) {
+            const shortUrl = url.split('?')[0];
+
+            if(shortUrl) {
+                const extractedId = shortUrl.split('/').pop();
+
+                if(extractedId) {
+                    videoId = extractedId;
                 }
             }
 
-            if(videoId) {
-                const videoInfo = await fetchVideoInfo(videoId);
-                if(!videoInfo) {
-                    console.error('Video not found');
-                    return;
-                }
+            if(!videoId) {
+                console.error('Invalid video url');
+                return;
+            }
+        }
 
-                input.value = '';
-                if(videoInfo) {
-                    const newVideo: Video = {
-                        id: videoId,
-                        url: url,
-                        title: videoInfo.snippet.title,
-                        apiData: videoInfo,
-                    };
-                    if(onChange) {
-                        onChange([...videos, newVideo]);
-                    }
-                }
+        const videoInfo = await VideoDataFetcher.fetchVideoInfo(videoId);
+        if(!videoInfo) {
+            console.error('Video not found');
+            return;
+        }
+
+        if(videoInfo) {
+            const newVideo: Video = {
+                id: videoId,
+                url: url,
+                title: videoInfo.snippet.title,
+                apiData: videoInfo,
+            };
+            if(onChange) {
+                onChange([...videos, newVideo]);
             }
         }
     };
@@ -150,14 +154,14 @@ export const VideosList: React.FC<VideosListProps> = ({
 
     return (
         <section className="videos_list mt-4">
-            <form onSubmit={(e) => {handleAddVideo(e)}}>
+            <form onSubmit={(e) => {handleAdd(e)}}>
                 <div className="flex pb-2 gap-1">
                     <label className="input input-bordered flex items-center gap-2 input-md grow">
                         <input
                             // onChange={(e) => handleNewVideoUrl(e.target.value)}
                             type="text"
                             className="grow"
-                            placeholder="Video url"
+                            placeholder="Video or playlist youtube url"
                         />
                         <RiSearchLine size={16} />
                     </label>

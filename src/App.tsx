@@ -1,5 +1,5 @@
 import { Playmodoro } from './components/Playmodoro/Playmodoro';
-import { Storage } from './utils/storage';
+import { Storage } from './utils/Storage';
 
 
 import { defaultConfiguration } from './configurations/defaultConfiguration';
