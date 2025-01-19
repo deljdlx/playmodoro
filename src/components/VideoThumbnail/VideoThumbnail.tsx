@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import type { Video } from '../../types/Video';
 
@@ -18,19 +18,31 @@ type VideoThumbnailProps = {
 
 export const VideoThumbnail: React.FC<VideoThumbnailProps> = ({
     video,
-    width,
-    height,
     onDelete,
     onClick,
 }) => {
 
+    const thumbnailRef = useRef<HTMLDivElement>(null);
+
+
     const handleDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
-        console.log('%cVideoThumbnail.tsx :: 22 =============================', 'color: #f00; font-size: 1rem');
-        console.log('DELETE');
-        console.log(event);
         event.stopPropagation ();
-        if (onDelete) {
-            onDelete(video);
+
+        const domContainer = thumbnailRef.current;
+        if(domContainer) {
+            const container = domContainer.parentElement;
+            if(container) {
+                container.style.height = `${domContainer.offsetHeight}px`;
+                setTimeout(() => {
+                    container.classList.add('deleted');
+                    setTimeout(() => {
+                        // container.remove();
+                        if (onDelete) {
+                            onDelete(video);
+                        }
+                    }, 300);
+                }, 30);
+            }
         }
     };
 
@@ -38,7 +50,7 @@ export const VideoThumbnail: React.FC<VideoThumbnailProps> = ({
     return (
         <>
             {video.id &&(
-                <div className="video_thumbnail">
+                <div className="video_thumbnail" ref={thumbnailRef}>
                     <div>
                         {video.apiData?.snippet?.thumbnails?.medium?.url && (
                             <div className="video_thumbnail__thumbnail"

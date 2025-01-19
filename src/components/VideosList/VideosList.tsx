@@ -194,26 +194,4 @@ export const VideosList: React.FC<VideosListProps> = ({
         </section>
 
     );
-
-
-    // return (
-    //     <section>
-    //         <DndContext
-    //             sensors={sensors}
-    //             collisionDetection={closestCenter}
-    //             onDragEnd={handleDragEnd}
-    //             >
-    //             <SortableContext items={videos} strategy={verticalListSortingStrategy}>
-    //                 <ul style={{ listStyleType: 'none', padding: 0 }}>
-    //                 {videos.map((video) => (
-    //                     <SortableItem key={video.id} id={video.id}>
-    //                         <VideoThumbnail video={video} width={150} height={100} onDelete={onVideoDelete}/>
-    //                     </SortableItem>
-    //                 ))}
-    //                 </ul>
-    //             </SortableContext>
-    //         </DndContext>
-    //     </section>
-
-    // );
 };
