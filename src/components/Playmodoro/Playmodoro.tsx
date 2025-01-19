@@ -10,7 +10,7 @@ import { PlaymodoroCyclesInformations } from '../PlaymodoroCyclesInformations/Pl
 import { Tab } from '../Tab/Tab';
 import { VideosList } from '../VideosList/VideosList';
 import { YoutubePlayer } from '../YoutubePlayer/YoutubePlayer';
-import { CycleSettings } from '../CycleSettings/CycleSettings';
+import { PlaymodoroSettings } from '../PlaymodoroSettings/PlaymodoroSettings';
 import { Controls } from '../Controls/Controls';
 import { Search } from '../Search/Search';
 
@@ -126,7 +126,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                     </Tab>
                     <Tab name="playmodoro_tabs" caption="⚙️">
                         <div className="playmodoro_panel setting_panel p-4">
-                            <CycleSettings />
+                            <PlaymodoroSettings />
                         </div>
                     </Tab>
                 </div>

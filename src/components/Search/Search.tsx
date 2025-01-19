@@ -69,9 +69,6 @@ export const Search: React.FC<SearchProps> = () => {
                 setTimeout(() => {
                     resultDom.classList.add('added');
                     setTimeout(() => {
-                        resultDom.remove();
-                        // setSearchResults(searchResults.filter((v) => v.id !== video.id));
-
                         const videos = [
                             ...state.configuration.playlists[playlistName]
                         ];

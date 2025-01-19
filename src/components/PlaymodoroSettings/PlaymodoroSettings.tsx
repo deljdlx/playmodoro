@@ -1,7 +1,7 @@
 import React from 'react';
 import { usePlaymodoroContext } from '../../contexts/playmodoro';
 
-export const CycleSettings: React.FC = () => {
+export const PlaymodoroSettings: React.FC = () => {
 
     const {
         state,
