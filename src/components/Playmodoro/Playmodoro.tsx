@@ -12,8 +12,7 @@ import { VideosList } from '../VideosList/VideosList';
 import { Player } from '../Player/Player';
 import { CycleSettings } from '../CycleSettings/CycleSettings';
 import { Controls } from '../Controls/Controls';
-
-
+import { Search } from '../Search/Search';
 
 
 type PlaylistEditorProps = {
@@ -75,7 +74,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                 <div role="tablist" className="playmodoro-tabs tabs tabs-bordered">
 
                     <Tab name="playmodoro_tabs" caption="Cycles" checked={true}>
-                        <div className="playmodoro_panel cycles_panel">
+                        <div className="playmodoro_panel cycles_panel p-4">
                             <Player />
                             <div>
                                 <PlaymodoroCyclesInformations />
@@ -92,26 +91,43 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                                     caption="Work"
                                     checked={true}
                                 >
-                                    <VideosList
-                                        videos={state.configuration.playlists.work}
-                                        onChange={(videos) => handlePlaylistChange('work', videos)}
-                                        onVideoClick={handleVideoClick}
-                                    />
+                                    <div className="playlist-content">
+                                        <VideosList
+                                            videos={state.configuration.playlists.work}
+                                            onChange={(videos) => handlePlaylistChange('work', videos)}
+                                            onVideoClick={handleVideoClick}
+                                        />
+                                    </div>
                                 </Tab>
                                 <Tab
                                     name="playlists_tabs"
                                     caption="Pause"
                                 >
-                                    <VideosList
-                                        videos={state.configuration.playlists.pause}
-                                        onChange={(videos) => handlePlaylistChange('pause', videos)}
-                                    />
+                                    <div className="playlist-content">
+                                        <VideosList
+                                            videos={state.configuration.playlists.pause}
+                                            onChange={(videos) => handlePlaylistChange('pause', videos)}
+                                        />
+                                    </div>
                                 </Tab>
+
+                                <Tab
+                                    name="playlists_tabs"
+                                    caption="🔎"
+                                >
+                                    <div className="playlist-content mt-4">
+                                        <Search />
+                                    </div>
+
+                                </Tab>
+
                             </div>
                         </div>
                     </Tab>
                     <Tab name="playmodoro_tabs" caption="Settings">
-                        <CycleSettings />
+                        <div className="playmodoro_panel setting_panel p-4">
+                            <CycleSettings />
+                        </div>
                     </Tab>
                 </div>
                 <div>

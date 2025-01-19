@@ -401,12 +401,12 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
         if(state.isWorkCycleRunning) {
             newState.currentWorkVideoIndex = (state.currentWorkVideoIndex + 1) % state.configuration.playlists.work.length;
             newState.currentWorkVideoElaspedTime = 0;
-            newState.currentVideo = state.configuration.playlists.work[newState.currentWorkVideoIndex];
+            newState.currentVideo = {...state.configuration.playlists.work[newState.currentWorkVideoIndex]};
         }
         else {
             newState.currentPauseVideoIndex = (state.currentPauseVideoIndex + 1) % state.configuration.playlists.pause.length;
             newState.currentPauseVideoElaspedTime = 0;
-            newState.currentVideo = state.configuration.playlists.pause[newState.currentPauseVideoIndex];
+            newState.currentVideo = {...state.configuration.playlists.pause[newState.currentPauseVideoIndex]};
         }
 
         newState.videoReady = false;

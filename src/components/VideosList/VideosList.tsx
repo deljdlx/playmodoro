@@ -154,11 +154,12 @@ export const VideosList: React.FC<VideosListProps> = ({
 
     return (
         <section className="videos_list mt-4">
-            <form onSubmit={(e) => {handleAdd(e)}}>
+
+
+            {/* <form onSubmit={(e) => {handleAdd(e)}}>
                 <div className="flex pb-2 gap-1">
                     <label className="input input-bordered flex items-center gap-2 input-md grow">
                         <input
-                            // onChange={(e) => handleNewVideoUrl(e.target.value)}
                             type="text"
                             className="grow"
                             placeholder="Video or playlist youtube url"
@@ -167,7 +168,7 @@ export const VideosList: React.FC<VideosListProps> = ({
                     </label>
                     <button className="btn btn-primary btn-md" type="submit">Add</button>
                 </div>
-            </form>
+            </form> */}
 
 
 

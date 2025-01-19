@@ -1,23 +1,21 @@
-import {fetchVideoInfo, fetchPlaylistVideos} from './youtube';
+import {
+    fetchVideoInfo,
+    fetchPlaylistVideos,
+    searchVideos
+} from './youtube';
 
-
-const youtubeAPIKey = 'AIzaSyBGcT8apf6ZE3kF55NrSJEzBqE6Tan5qQg';
 
 export class VideoDataFetcher {
 
-    static async fetchVideoInfo(videoId: string, apiKeys: string = '') {
-        if (!apiKeys) {
-            apiKeys = youtubeAPIKey;
-        }
-
-        return fetchVideoInfo(videoId, apiKeys);
+    static async fetchVideoInfo(videoId: string) {
+        return fetchVideoInfo(videoId);
     }
 
-    static async fetchPlaylistVideos(playlistId: string, apiKeys: string = '') {
-        if (!apiKeys) {
-            apiKeys = youtubeAPIKey;
-        }
+    static async fetchPlaylistVideos(playlistId: string) {
+        return fetchPlaylistVideos(playlistId);
+    }
 
-        return fetchPlaylistVideos(playlistId, apiKeys);
+    static async searchVideos(query: string) {
+        return searchVideos(query);
     }
 };

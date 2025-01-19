@@ -1,8 +1,4 @@
 import React, {useState, useEffect, useRef} from 'react';
-
-import type { Video } from '../../types/Video';
-import { PlaymodoroConfiguration } from "../../types/PlaymodoroConfiguration";
-
 import { usePlaymodoroContext } from '../../contexts/playmodoro';
 
 type PlayerProps = {
