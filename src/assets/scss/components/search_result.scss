@@ -11,6 +11,10 @@
     transform: scale(1);
     transition: all 0.3s;
 
+    .search_result_debug {
+        font-size: 8px;
+    }
+
 
     &.added {
         // transform: scale(0);

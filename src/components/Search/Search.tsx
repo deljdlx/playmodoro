@@ -66,10 +66,6 @@ export const Search: React.FC<SearchProps> = () => {
 
         if(resultsDomContainer) {
             const resultDom = resultsDomContainer.querySelector(`[data-video-id="${video.id}"]`) as HTMLElement;
-
-            resultDom.style.border = '10px solid red';
-            console.log(resultDom);
-
             if(resultDom) {
                 resultDom.style.height = `${resultDom.offsetHeight}px`;
 
@@ -125,7 +121,7 @@ export const Search: React.FC<SearchProps> = () => {
 
                 {searchResults.map((video: any, index) => (
                     <div key={index} className="search_result_container" data-video-id={video.id}>
-                        <pre>{state.debugMode &&
+                        <pre className="search_result_debug debug">{state.debugMode &&
                             JSON.stringify(video.apiData, null, 4)
                         }</pre>
                         <h3>{video.apiData.snippet.title}</h3>
@@ -136,7 +132,7 @@ export const Search: React.FC<SearchProps> = () => {
                                 <motion.button
                                     className="btn btn-primary btn-md"
                                     onClick={() => addToPlaylist('work', video)}
-                                    whileHover={{ scale: 1.1 }}
+                                    // whileHover={{ scale: 1.1 }}
                                     whileTap={{ scale: 0.9 }}
                                     transition={{ duration: 0.2 }}
                                 >
@@ -145,7 +141,9 @@ export const Search: React.FC<SearchProps> = () => {
                                 </motion.button>
                                 <motion.button
                                     className="btn btn-primary btn-md"
-                                     onClick={() => addToPlaylist('pause', video)}
+                                    onClick={() => addToPlaylist('pause', video)}
+                                    whileTap={{ scale: 0.9 }}
+                                    transition={{ duration: 0.2 }}
                                 >
                                     <RiAddLine/> pause
                                 </motion.button>
