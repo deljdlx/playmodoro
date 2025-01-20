@@ -44,7 +44,7 @@ export const Search: React.FC<SearchProps> = () => {
             const videos = [];
             for (const result of results) {
                 const video: Video = {
-                    id: result.id,
+                    id: result.id.videoId,
                     apiData: result,
                     url: null,
                     title: result.snippet.title,
@@ -62,12 +62,16 @@ export const Search: React.FC<SearchProps> = () => {
         // search the div with the video id and apply effect
 
         const resultsDomContainer = document.querySelector('.search_results');
+
+
         if(resultsDomContainer) {
             const resultDom = resultsDomContainer.querySelector(`[data-video-id="${video.id}"]`) as HTMLElement;
+
+            resultDom.style.border = '10px solid red';
+            console.log(resultDom);
+
             if(resultDom) {
                 resultDom.style.height = `${resultDom.offsetHeight}px`;
-
-
 
                 setTimeout(() => {
                     resultDom.classList.add('added');
@@ -88,6 +92,8 @@ export const Search: React.FC<SearchProps> = () => {
                     },400);
 
                 }, 20);
+            } else {
+                console.error('%cvideo not found', 'font-size: 20px; color: red;');
             }
         }
     };
@@ -117,8 +123,11 @@ export const Search: React.FC<SearchProps> = () => {
                 )}
 
 
-                {searchResults.map((video: any) => (
-                    <div key={video.id} className="search_result_container" data-video-id={video.id}>
+                {searchResults.map((video: any, index) => (
+                    <div key={index} className="search_result_container" data-video-id={video.id}>
+                        <pre>{state.debugMode &&
+                            JSON.stringify(video.apiData, null, 4)
+                        }</pre>
                         <h3>{video.apiData.snippet.title}</h3>
                         <div className="search_result">
                             <div className="search_result__thumbnail" style={{backgroundImage: `url(${video.apiData.snippet.thumbnails.medium.url})`}}>
