@@ -44,7 +44,7 @@ export const Search: React.FC<SearchProps> = () => {
             const videos = [];
             for (const result of results) {
                 const video: Video = {
-                    id: result.id.videoId,
+                    id: result.id.videoId || result.id.playlistId,
                     apiData: result,
                     url: null,
                     title: result.snippet.title,
@@ -71,12 +71,43 @@ export const Search: React.FC<SearchProps> = () => {
 
                 setTimeout(() => {
                     resultDom.classList.add('added');
-                    setTimeout(() => {
+                    setTimeout(async () => {
                         const videos = [
                             ...state.configuration.playlists[playlistName]
                         ];
 
-                        videos.push(video);
+                        // check if video is a playlist
+                        if(video.apiData.id.playlistId) {
+
+                            console.log('%cplaylist found', 'font-size: 20px; color: green;');
+
+                            // fetch playlist videos
+                            const playlistId = video.apiData.id.playlistId;
+                            const items = await VideoDataFetcher.fetchPlaylistVideos(playlistId);
+                            const itemsWithoutDeleted = items.filter((item: any) => {
+                                return (
+                                    item.snippet.thumbnails.default !== undefined
+                                    && item.snippet.title !== 'Deleted video'
+                                    && item.snippet.title !== 'Private video'
+                                );
+                            });
+
+                            if(itemsWithoutDeleted) {
+                                const newVideos = itemsWithoutDeleted.map((item: any) => {
+                                    const videoId = item.snippet.resourceId.videoId;
+                                    return {
+                                        id: videoId,
+                                        url: null,
+                                        title: item.snippet.title,
+                                        apiData: item,
+                                    };
+                                });
+                                videos.push(...newVideos);
+                            }
+                        }
+                         else {
+                            videos.push(video);
+                        }
 
                         dispatchState({
                             type: "UPDATE_PLAYLIST",
@@ -85,8 +116,7 @@ export const Search: React.FC<SearchProps> = () => {
                                 videos: videos,
                             }
                         });
-                    },400);
-
+                    }, 400);
                 }, 20);
             } else {
                 console.error('%cvideo not found', 'font-size: 20px; color: red;');
@@ -120,13 +150,22 @@ export const Search: React.FC<SearchProps> = () => {
 
 
                 {searchResults.map((video: any, index) => (
-                    <div key={index} className="search_result_container" data-video-id={video.id}>
+                    <div key={index} className={[
+                            'search_result_container',
+                            (video.apiData.id.playlistId) ? 'playlist' : '',
+                        ].join(' ')}
+                        data-video-id={video.id}
+                    >
                         <pre className="search_result_debug debug">{state.debugMode &&
                             JSON.stringify(video.apiData, null, 4)
                         }</pre>
                         <h3>{video.apiData.snippet.title}</h3>
                         <div className="search_result">
-                            <div className="search_result__thumbnail" style={{backgroundImage: `url(${video.apiData.snippet.thumbnails.medium.url})`}}>
+                            <div
+                                className={[
+                                    'search_result__thumbnail',
+                                ].join(' ')}
+                                style={{backgroundImage: `url(${video.apiData.snippet.thumbnails.medium.url})`}}>
                             </div>
                             <div className="search_result__actions">
                                 <motion.button

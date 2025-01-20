@@ -254,6 +254,19 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
                 }
 
                 newState.configuration.playlists[action.payload.playlistName] = action.payload.videos;
+
+                if(newState.isWorkCycleRunning) {
+                    newState.currentVideo = {
+                        ...newState.configuration.playlists[state.currentPlaylist][state.currentWorkVideoIndex]
+                    }
+                }
+                else {
+                    newState.currentVideo = {
+                        ...newState.configuration.playlists[state.currentPlaylist][state.currentPauseVideoIndex]
+                    }
+                }
+
+
                 return newState;
             }
 

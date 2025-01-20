@@ -11,6 +11,18 @@
     transform: scale(1);
     transition: all 0.3s;
 
+    &.playlist h3::before {
+        content: "🗂️ Playlist";
+        display: inline-block;
+        // float: left;
+        margin-right: 8px;
+        border-radius: 4px;
+        border: 1px solid #383F47;
+        padding: 0 4px;
+        background-color: #383F47;
+        margin-bottom: 8px;
+    }
+
     .search_result_debug {
         font-size: 8px;
     }
@@ -27,6 +39,7 @@
     .search_result {
         display: flex;
         gap: 8px;
+
         .search_result__thumbnail {
             background-size: cover;
             background-position: 50% 50%;
