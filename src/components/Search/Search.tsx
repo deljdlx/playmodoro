@@ -22,6 +22,7 @@ type SearchProps = {
 export const Search: React.FC<SearchProps> = () => {
 
     const [searchResults, setSearchResults] = useState<Video[]>([]);
+    const [searching, setSearching] = useState<boolean>(false);
     const {
         state,
         dispatchState,
@@ -37,6 +38,7 @@ export const Search: React.FC<SearchProps> = () => {
         setSearchResults([]);
 
         if (search) {
+            setSearching(true);
             const results = await VideoDataFetcher.searchVideos(search);
             console.log(results);
             const videos = [];
@@ -51,6 +53,7 @@ export const Search: React.FC<SearchProps> = () => {
             }
 
             setSearchResults(videos);
+            setSearching(false);
         }
     };
 
@@ -101,6 +104,19 @@ export const Search: React.FC<SearchProps> = () => {
             </form>
 
             <div className="search_results mt-4">
+
+                {searching && (
+                    <div className="search_searching">
+                        <h3>Searching...</h3>
+                        <div className="search_searching__icon">
+                            <RiSearchLine
+                                size={60}
+                            />
+                        </div>
+                    </div>
+                )}
+
+
                 {searchResults.map((video: any) => (
                     <div key={video.id} className="search_result_container" data-video-id={video.id}>
                         <h3>{video.apiData.snippet.title}</h3>

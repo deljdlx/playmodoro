@@ -1,0 +1,27 @@
+.search_searching {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 250px;
+
+
+
+    h3 {
+        font-size: 2rem;
+    }
+
+
+    @keyframes search_searching__icon {
+        // create an animation in which the move in a circle
+        0% { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+      }
+
+    .search_searching__icon {
+        margin-top: 40px;
+        font-size: 2rem;
+        animation: search_searching__icon 2s linear infinite;
+    }
+
+}
