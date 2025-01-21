@@ -1,4 +1,5 @@
 import React from 'react';
+import { usePlaymodoroContext } from '../../contexts/playmodoro';
 
 import {
     DndContext,
@@ -37,6 +38,10 @@ export const VideosList: React.FC<VideosListProps> = ({
     onVideoClick,
 }) => {
 
+    const {
+        state,
+    } = usePlaymodoroContext();
+
     const sensors = useSensors(
         useSensor(PointerSensor, {
           activationConstraint: {
@@ -67,82 +72,88 @@ export const VideosList: React.FC<VideosListProps> = ({
         }
     };
 
-    const handleAdd = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const input = (e.target as HTMLFormElement).querySelector('input');
+    // not used any more, but kept for reference
+    // const handleAdd = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     const input = (e.target as HTMLFormElement).querySelector('input');
 
-        if(input) {
-            const url = input.value;
-            input.value = '';
+    //     if(input) {
+    //         const url = input.value;
+    //         input.value = '';
 
-            if(url.includes('list=')) {
-                return handleAddPlaylist(url);
-            }
+    //         if(url.includes('list=')) {
+    //             return handleAddPlaylist(url);
+    //         }
 
-            return handleAddVideo(url);
-        }
-    };
+    //         return handleAddVideo(url);
+    //     }
+    // };
 
 
-    const handleAddPlaylist = async (url: string) => {
-        const playlistId = url.split('list=')[1];
-        const items = await VideoDataFetcher.fetchPlaylistVideos(playlistId);
+    // not used any more, but kept for reference
+    // const handleAddPlaylist = async (url: string) => {
+    //     const playlistId = url.split('list=')[1];
+    //     const items = await VideoDataFetcher.fetchPlaylistVideos(playlistId);
 
-        if(items) {
-            const newVideos = items.map((item: any) => {
-                const videoId = item.snippet.resourceId.videoId;
-                return {
-                    id: videoId,
-                    url: `https://www.youtube.com/watch?v=${videoId}`,
-                    title: item.snippet.title,
-                    apiData: item,
-                };
-            });
+    //     if(items) {
+    //         const newVideos = items.map((item: any) => {
+    //             const videoId = item.snippet.resourceId.videoId;
+    //             return {
+    //                 id: videoId,
+    //                 url: `https://www.youtube.com/watch?v=${videoId}`,
+    //                 title: item.snippet.title,
+    //                 apiData: item,
+    //             };
+    //         });
 
-            if(onChange) {
-                onChange([...videos, ...newVideos]);
-            }
-        }
-    };
+    //         if(onChange) {
+    //             onChange([...videos, ...newVideos]);
+    //         }
+    //     }
+    // };
 
-    const handleAddVideo = async (url: string) => {
-        let videoId = url.split('v=')[1];
+    // not used any more, but kept for reference
+    // const handleAddVideo = async (url: string) => {
+    //     let videoId = url.split('v=')[1];
 
-        if(!videoId) {
-            const shortUrl = url.split('?')[0];
+    //     if(!videoId) {
+    //         const shortUrl = url.split('?')[0];
 
-            if(shortUrl) {
-                const extractedId = shortUrl.split('/').pop();
+    //         if(shortUrl) {
+    //             const extractedId = shortUrl.split('/').pop();
 
-                if(extractedId) {
-                    videoId = extractedId;
-                }
-            }
+    //             if(extractedId) {
+    //                 videoId = extractedId;
+    //             }
+    //         }
 
-            if(!videoId) {
-                console.error('Invalid video url');
-                return;
-            }
-        }
+    //         if(!videoId) {
+    //             console.error('Invalid video url');
+    //             return;
+    //         }
+    //     }
 
-        const videoInfo = await VideoDataFetcher.fetchVideoInfo(videoId);
-        if(!videoInfo) {
-            console.error('Video not found');
-            return;
-        }
+    //     const videoInfo = await VideoDataFetcher.fetchVideoInfo(
+    //         videoId,
+    //         state.mediaApiUrl,
+    //     );
+    //     if(!videoInfo) {
+    //         console.error('Video not found');
+    //         return;
+    //     }
 
-        if(videoInfo) {
-            const newVideo: Video = {
-                id: videoId,
-                url: url,
-                title: videoInfo.snippet.title,
-                apiData: videoInfo,
-            };
-            if(onChange) {
-                onChange([...videos, newVideo]);
-            }
-        }
-    };
+    //     if(videoInfo) {
+    //         const newVideo: Video = {
+    //             id: videoId,
+    //             url: url,
+    //             title: videoInfo.snippet.title,
+    //             apiData: videoInfo,
+    //         };
+    //         if(onChange) {
+    //             onChange([...videos, newVideo]);
+    //         }
+    //     }
+    // };
 
     const handleDeleteVideo = (video: Video) => {
         const newListOfVideos = videos.filter((v) => v.id !== video.id);

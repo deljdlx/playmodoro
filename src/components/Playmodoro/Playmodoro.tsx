@@ -14,6 +14,13 @@ import { PlaymodoroSettings } from '../PlaymodoroSettings/PlaymodoroSettings';
 import { Controls } from '../Controls/Controls';
 import { Search } from '../Search/Search';
 
+import {
+    motion
+} from "framer-motion";
+
+
+import { RiFileCodeLine } from '@remixicon/react';
+
 
 type PlaylistEditorProps = {
 };
@@ -25,29 +32,23 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
     const {
         state, dispatchState,
     } = usePlaymodoroContext();
-
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {
         const configuration = Storage.get('configuration') || defaultConfiguration;
-
         dispatchState({
             type: "SET_CONFIGURATION",
             payload: configuration,
         });
-
         setIsReady(true);
-
     }, []);
 
-    // save configuration to localStorage
+
     useEffect(() => {
         if (isReady) {
             Storage.set('configuration', state.configuration);
         }
     }, [state.configuration, ]);
-
-
 
 
     const handlePlaylistChange = (playlistName: string, videos: Video[]) => {
@@ -60,6 +61,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
         });
     };
 
+
     const handleVideoClick = (video: Video) => {
         dispatchState({
             type: "SET_CURRENT_VIDEO",
@@ -67,24 +69,29 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
         });
     }
 
-
     return (
         <>
             <div className="playmodoro">
                 <div role="tablist" className="playmodoro-tabs tabs tabs-bordered">
 
+                    {/* ====================================================================== */}
+
                     <Tab name="playmodoro_tabs" caption="Cycle" checked={true}>
                         <div className="playmodoro_panel cycles_panel p-4">
                             <YoutubePlayer />
+                            <div className="video_title">
+                                {state.currentVideo?.title}
+                            </div>
                             <div>
                                 <PlaymodoroCyclesInformations />
                             </div>
                         </div>
                     </Tab>
 
+                    {/* ====================================================================== */}
+
                     <Tab name="playmodoro_tabs" caption="Playlists">
                         <div className="playmodoro_panel playlists_panel">
-
                             <div role="tablist" className="tabs tabs-bordered">
                                 <Tab
                                     name="playlists_tabs"
@@ -129,10 +136,40 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                             <PlaymodoroSettings />
                         </div>
                     </Tab>
+
+                    {/* ====================================================================== */}
+
+                    {state.debugMode && (
+                        <Tab name="playmodoro_tabs" caption="💾">
+                            <div className="playmodoro_panel json_panel p-4">
+                                <motion.button
+                                        className="copy_configuration_trigger"
+                                        // whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.7 }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                    <RiFileCodeLine
+                                        size={50}
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(JSON.stringify(state.configuration, null, 4));
+                                        }}
+                                    />
+                                </motion.button>
+                                <textarea
+                                    value={JSON.stringify(state.configuration, null, 4)}
+                                    readOnly={true}
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        fontFamily: 'monospace',
+                                        fontSize: '10px',
+                                    }}
+                                ></textarea>
+                            </div>
+                        </Tab>
+                    )}
                 </div>
-                <div>
-                    <Controls />
-                </div>
+                <Controls />
             </div>
         </>
     );

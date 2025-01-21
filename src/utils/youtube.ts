@@ -2,13 +2,10 @@ import { MEDIA_API_BASE_URL }  from '../config';
 
 export const fetchVideoInfo = async (
     videoId: string,
+    mediaApiUrl: string = MEDIA_API_BASE_URL,
 ) => {
-
-
-    console.log(MEDIA_API_BASE_URL);
-
     try {
-        const url = MEDIA_API_BASE_URL + `/video/${videoId}`;
+        const url = mediaApiUrl + `/video/${videoId}`;
         const response = await fetch(url);
         const json = await response.json();
 
@@ -29,10 +26,11 @@ export const fetchVideoInfo = async (
 
 export const fetchPlaylistVideos = async (
     playlistId: string,
+    mediaApiUrl: string = MEDIA_API_BASE_URL,
 ) => {
 
     try {
-        const url = MEDIA_API_BASE_URL + `/playlist/${playlistId}`;
+        const url = mediaApiUrl + `/playlist/${playlistId}`;
         const response = await fetch(url);
         const json = await response.json();
 
@@ -51,10 +49,10 @@ export const fetchPlaylistVideos = async (
 
 export const searchVideos = async (
     search: string,
+    mediaApiUrl: string = MEDIA_API_BASE_URL,
 ) => {
-
     try {
-        const url = MEDIA_API_BASE_URL + `/search?q=${search}`;
+        const url = mediaApiUrl + `/search?q=${search}`;
         const response = await fetch(url);
         const json = await response.json();
 

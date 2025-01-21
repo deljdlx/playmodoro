@@ -6,9 +6,6 @@ import {Video} from '../../types/Video';
 
 import {
     motion
-    // useMotionValue,
-    // useTransform,
-    // AnimatePresence
 } from "framer-motion";
 
 import {RiSearchLine} from '@remixicon/react';
@@ -39,7 +36,7 @@ export const Search: React.FC<SearchProps> = () => {
 
         if (search) {
             setSearching(true);
-            const results = await VideoDataFetcher.searchVideos(search);
+            const results = await VideoDataFetcher.searchVideos(search, state.mediaApiUrl);
             console.log(results);
             const videos = [];
             for (const result of results) {
@@ -58,12 +55,7 @@ export const Search: React.FC<SearchProps> = () => {
     };
 
     const addToPlaylist = (playlistName: string, video: any) => {
-
-        // search the div with the video id and apply effect
-
         const resultsDomContainer = document.querySelector('.search_results');
-
-
         if(resultsDomContainer) {
             const resultDom = resultsDomContainer.querySelector(`[data-video-id="${video.id}"]`) as HTMLElement;
             if(resultDom) {
@@ -78,12 +70,9 @@ export const Search: React.FC<SearchProps> = () => {
 
                         // check if video is a playlist
                         if(video.apiData.id.playlistId) {
-
-                            console.log('%cplaylist found', 'font-size: 20px; color: green;');
-
                             // fetch playlist videos
                             const playlistId = video.apiData.id.playlistId;
-                            const items = await VideoDataFetcher.fetchPlaylistVideos(playlistId);
+                            const items = await VideoDataFetcher.fetchPlaylistVideos(playlistId, state.mediaApiUrl);
                             const itemsWithoutDeleted = items.filter((item: any) => {
                                 return (
                                     item.snippet.thumbnails.default !== undefined

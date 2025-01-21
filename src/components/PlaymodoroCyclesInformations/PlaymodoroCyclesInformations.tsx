@@ -51,7 +51,7 @@ export const PlaymodoroCyclesInformations: React.FC<PlaymodoroCyclesInformations
                 <span>{state.cyclesCount}/{state.configuration.cycles}</span>
             </div>
 
-            {state.isRunning && state.isWorkCycleRunning && (
+            {state.isWorkCycleRunning && (
                 <div className="item">
                     <span>Work cycle ends in: </span>
                     <span>
@@ -60,7 +60,7 @@ export const PlaymodoroCyclesInformations: React.FC<PlaymodoroCyclesInformations
                 </div>
             )}
 
-            {state.isRunning && !state.isWorkCycleRunning && (
+            {!state.isWorkCycleRunning && (
                 <div className="item">
                     <span>Pause cycle ends in: </span>
                     <span>

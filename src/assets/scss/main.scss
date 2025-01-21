@@ -24,6 +24,11 @@ $controlsContainerHeight: 100px;
 $noPauseContainerHeight: 50px;
 $tabsHeight: 40px;
 
+html {
+    background-color: #000 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+}
 
 body {
     background-color: #000;
@@ -31,6 +36,9 @@ body {
     height: 100vh;
     margin: 0;
     overflow: hidden;
+
+    max-width: 800px;
+    margin: 0 auto;
 
 
     .input {
@@ -48,10 +56,16 @@ body {
     }
 
     .App {
-        // border: #ff0 4px solid;
+
+        @include breakpoint(md) {
+            border-left: #aaa8 1px solid;
+            border-right: #aaa8 1px solid;
+        }
+
+
+
         box-sizing: border-box;
         position: relative;
-        width: 100vw;
         overflow: hidden;
     }
 
@@ -76,15 +90,18 @@ body {
         // margin-top: 1rem;
     }
 
-    .debug_toggle_container {
-        // position: absolute;
-        // bottom: 0;
-        // right: 0;
-        // opacity: 0.2;
+
+
+    .copy_configuration_trigger {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: #aaa;
+        cursor: pointer;
     }
 
+
     .playmodoro {
-        width: 100vw;
         height: 100vh;
         box-sizing: border-box;
     }
@@ -94,17 +111,15 @@ body {
     }
 
     .playmodoro_panel {
-        // overflow-y: auto;
+
         overflow: hidden;
-        width: 100vw;
+        overflow-y: auto;
+        // width: 100vw;
         height: calc(100vh - $controlsContainerHeight - $noPauseContainerHeight  - $verticalOffset - $tabsHeight);
         display: flex;
         flex-direction: column;
         gap: 8px;
-
-        // padding: 1rem;
-
-        overflow-y: auto;
+        position: relative;
     }
 
     .playlist-content {
@@ -124,6 +139,10 @@ body {
     }
 
     .cycles_informations {
+
+        // max-width: 640px;
+        margin: 0 auto;
+
         align-self: flex-end;
         display: flex;
         flex-direction: column;
@@ -194,27 +213,10 @@ body {
 
 
 
-
-
-
-
-
-
-
-        // @include breakpoint(md) {
-        //     flex-direction: row;
-        // }
-
         .on_off_button_container {
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-
-
-        .youtube_player {
-            // display: none;
         }
 
 

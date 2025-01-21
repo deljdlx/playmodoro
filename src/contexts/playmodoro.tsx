@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect,  ReactNode, useReducer } from "react";
+import React, { createContext, useContext, ReactNode, useReducer } from "react";
+import { MEDIA_API_BASE_URL }  from '../config';
 import { PlaymodoroConfiguration } from "../types/PlaymodoroConfiguration";
 import { Video } from "../types/Video";
 
@@ -15,11 +16,10 @@ type PlaymodoroProviderProps = {
     configuration: PlaymodoroConfiguration;
 };
 
-
-
 // ====================================================================
-type PlaymodoroState = {
 
+type PlaymodoroState = {
+    mediaApiUrl: string;
     debugMode: boolean;
 
     configuration: PlaymodoroConfiguration;
@@ -50,6 +50,9 @@ type PlaymodoroState = {
 };
 
 type PlaymodoroAction =
+
+    | { type: "SET_MEDIA_API_URL"; payload: string; }
+
     | { type: "SET_PLAYER"; payload: any; }
 
     | { type: "VIDEO_ENDED";}
@@ -85,6 +88,7 @@ type PlaymodoroAction =
 
 
 const initialState: PlaymodoroState = {
+    mediaApiUrl: MEDIA_API_BASE_URL,
     debugMode: false,
 
     configuration:{
@@ -124,6 +128,13 @@ const playmodoroReducer = (state: PlaymodoroState, action: PlaymodoroAction): Pl
     const handleCases = (): PlaymodoroState => {
 
         switch (action.type) {
+
+            case "SET_MEDIA_API_URL": {
+                return {
+                    ...state,
+                    mediaApiUrl: action.payload,
+                };
+            }
 
             case "SET_PLAYER": {
                 let newState = {...state};

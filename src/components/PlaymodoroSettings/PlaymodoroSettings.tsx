@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePlaymodoroContext } from '../../contexts/playmodoro';
+import { MEDIA_API_BASE_URL }  from '../../config';
 
 export const PlaymodoroSettings: React.FC = () => {
 
@@ -7,11 +8,45 @@ export const PlaymodoroSettings: React.FC = () => {
         state,
         dispatchState,
     } = usePlaymodoroContext();
+    const [mediaApiUrl, setMediaApiUrl] = React.useState<string>(state.mediaApiUrl);
+
+
+    const handleMediaApiUrlChange = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        dispatchState({
+            type: "SET_MEDIA_API_URL",
+            payload: e.currentTarget.querySelector('input')?.value || MEDIA_API_BASE_URL,
+        });
+    };
 
 
     return (
         <div className="playmodoro-cycles-settings">
             <div>
+
+                {state.debugMode && (
+                    <form onSubmit={(e) => handleMediaApiUrlChange(e)}>
+                        <fieldset>
+                            <label className="form-control w-full">
+                                <div className="label">
+                                    <span className="label-text">Medias api url</span>
+                                </div>
+                                <div className="flex gap-1">
+                                    <input
+                                        className="input input-bordered w-full grow"
+                                        onClick={(e) => e.currentTarget.select()}
+                                        onChange={(e) => setMediaApiUrl(e.target.value)}
+                                        value={mediaApiUrl}
+                                        placeholder={state.mediaApiUrl}
+                                    />
+                                    <button className="btn btn-primary btn-md" type="submit">OK</button>
+                                </div>
+                            </label>
+                        </fieldset>
+                    </form>
+                )}
+
+
                 <fieldset>
                     <label className="form-control w-full">
                         <div className="label">
@@ -40,6 +75,8 @@ export const PlaymodoroSettings: React.FC = () => {
                 </fieldset>
 
                 <fieldset>
+
+
                     <label className="form-control w-full">
                         <div className="label">
                             <span className="label-text">Work duration in minutes</span>
