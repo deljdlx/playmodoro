@@ -2,16 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { defaultConfiguration } from './configurations/defaultConfiguration';
 import { Playmodoro } from './pages/Playmodoro/Playmodoro';
 
-
-// import { Help } from './pages/Help/Help';
-
-
-
-
-import logo from './logo.svg';
 import './App.css';
 import "./assets/scss/main.scss";
 
+// import { Help } from './pages/Help/Help';
+// import logo from './logo.svg';
 
 import { PlaymodoroProvider } from './contexts/playmodoro';
 
