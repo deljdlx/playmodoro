@@ -1,10 +1,12 @@
-import { Playmodoro } from './components/Playmodoro/Playmodoro';
-import { Storage } from './utils/Storage';
-
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { defaultConfiguration } from './configurations/defaultConfiguration';
+import { Playmodoro } from './pages/Playmodoro/Playmodoro';
 
-// import { fetchVideoInfo } from '../../utils/youtube';
+
+// import { Help } from './pages/Help/Help';
+
+
+
 
 import logo from './logo.svg';
 import './App.css';
@@ -21,10 +23,14 @@ function App() {
     <PlaymodoroProvider
       configuration={configuration}
     >
-    <div className="App">
-      <Playmodoro
-      />
+      <div className="App">
 
+        <Router>
+          <Routes>
+            <Route path="/" element={<Playmodoro/>} />
+            {/* <Route path="/help" element={<Help />} /> */}
+          </Routes>
+        </Router>
     </div>
     </PlaymodoroProvider>
   );

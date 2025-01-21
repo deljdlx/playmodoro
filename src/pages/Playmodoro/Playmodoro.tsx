@@ -6,13 +6,13 @@ import { defaultConfiguration } from '../../configurations/defaultConfiguration'
 import { usePlaymodoroContext } from '../../contexts/playmodoro';
 
 
-import { PlaymodoroCyclesInformations } from '../PlaymodoroCyclesInformations/PlaymodoroCyclesInformations';
-import { Tab } from '../Tab/Tab';
-import { VideosList } from '../VideosList/VideosList';
-import { YoutubePlayer } from '../YoutubePlayer/YoutubePlayer';
-import { PlaymodoroSettings } from '../PlaymodoroSettings/PlaymodoroSettings';
-import { Controls } from '../Controls/Controls';
-import { Search } from '../Search/Search';
+import { PlaymodoroCyclesInformations } from '../../components/PlaymodoroCyclesInformations/PlaymodoroCyclesInformations';
+import { Tab } from '../../components/Tab/Tab';
+import { VideosList } from '../../components/VideosList/VideosList';
+import { YoutubePlayer } from '../../components/YoutubePlayer/YoutubePlayer';
+import { PlaymodoroSettings } from '../../components/PlaymodoroSettings/PlaymodoroSettings';
+import { Controls } from '../../components/Controls/Controls';
+import { Search } from '../../components/Search/Search';
 
 import {
     motion
@@ -76,7 +76,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
 
                     {/* ====================================================================== */}
 
-                    <Tab name="playmodoro_tabs" caption="Cycle" checked={true}>
+                    <Tab name="playmodoro_tabs" caption="▶️" checked={true}>
                         <div className="playmodoro_panel cycles_panel p-4">
                             <YoutubePlayer />
                             <div className="video_title">
@@ -90,7 +90,7 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
 
                     {/* ====================================================================== */}
 
-                    <Tab name="playmodoro_tabs" caption="Playlists">
+                    <Tab name="playmodoro_tabs" caption="🎧">
                         <div className="playmodoro_panel playlists_panel">
                             <div role="tablist" className="tabs tabs-bordered">
                                 <Tab
@@ -134,6 +134,19 @@ export const Playmodoro: React.FC<PlaylistEditorProps> = ({
                     <Tab name="playmodoro_tabs" caption="⚙️">
                         <div className="playmodoro_panel setting_panel p-4">
                             <PlaymodoroSettings />
+                        </div>
+                    </Tab>
+
+                    <Tab name="playmodoro_tabs" caption="ℹ️">
+                        <div className="playmodoro_panel setting_panel p-4">
+                            <iframe src="/help.html"
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    backgroundColor: 'transparent',
+                                }}
+                                allowTransparency={true}
+                            ></iframe>
                         </div>
                     </Tab>
 

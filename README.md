@@ -1,71 +1,42 @@
-# Getting Started with Create React App
+# Playmodoro 🎵⏳
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Visit Playmodoro](https://playmodoro.jlb.ninja/)
 
-## Available Scripts
+Playmodoro is a productivity tool combining the Pomodoro technique with curated playlists to help you stay focused and manage your time effectively. 🚀
 
-In the project directory, you can run:
+## Features 🌟
 
-### `npm start`
+- **Pomodoro Timer**: Stay on track with work and break intervals.
+- **YouTube Playlists**:
+  - **Work Playlist**: Create and enjoy a playlist tailored to keep you focused during work sessions.
+  - **Break Playlist**: Switch to a relaxing playlist during your breaks.
+- **Local Storage**: All playlists are saved locally, so you can pick up right where you left off.
+- **Video Search**: A backend service powers video searches by proxying and caching YouTube API calls for seamless performance and reduced API usage.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Why Playmodoro? 🤔
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Focused Work**: Pair your tasks with motivational videos or music that keeps you in the zone.
+- **Stress-Free Breaks**: Enjoy curated content that helps you unwind during your breaks.
+- **Privacy-Friendly**: Playlists are stored locally, and API calls are proxied through a backend service for added security.
 
-### `npm test`
+## Getting Started 🚀
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Visit**: Open [Playmodoro](https://playmodoro.jlb.ninja/).
+2. **Set Your Timer**: Choose your Pomodoro session and break intervals.
+3. **Build Your Playlist**: Add YouTube videos for both work and break sessions.
+4. **Stay Productive**: Let Playmodoro manage your time and playlists seamlessly.
 
-### `npm run build`
+## How It Works 🛠️
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- The timer follows the classic Pomodoro method (e.g., 25 minutes work, 5 minutes break).
+- Use the search feature to find and add YouTube videos to your playlists.
+- All playlists are saved in your browser’s local storage, making them easily retrievable.
+- Video searches are processed via a backend service to enhance performance and privacy.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Feedback & Suggestions 💬
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+We'd love to hear your thoughts and suggestions for improving Playmodoro! Feel free to open an issue or contact us directly.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# playmodoro
+Made with ❤️ by Julien Delsescaux

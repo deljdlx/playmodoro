@@ -17,12 +17,14 @@ import {
 
 
 import type { Video } from '../../types/Video';
-import { VideoDataFetcher } from '../../utils/VideoDataFetcher';
 
 
 import {SortableItem} from '../SortableItem/SortableItem';
 import { VideoThumbnail } from '../VideoThumbnail/VideoThumbnail';
-import { RiSearchLine } from '@remixicon/react';
+
+// not used any more, but kept for reference
+// import { VideoDataFetcher } from '../../utils/VideoDataFetcher';
+// import { RiSearchLine } from '@remixicon/react';
 
 
 
